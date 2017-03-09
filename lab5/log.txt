@@ -1,0 +1,59 @@
+testStackDeque.java:4: warning: [rawtypes] found raw type: StackDeque
+      StackDeque a = new StackDeque();
+      ^
+  missing type arguments for generic class StackDeque<E>
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+testStackDeque.java:4: warning: [rawtypes] found raw type: StackDeque
+      StackDeque a = new StackDeque();
+                         ^
+  missing type arguments for generic class StackDeque<E>
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+testStackDeque.java:7: warning: [unchecked] unchecked call to addFirst(E) as a member of the raw type StackDeque
+         a.addFirst(rand.nextInt(33));
+                   ^
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+testStackDeque.java:8: warning: [unchecked] unchecked call to addLast(E) as a member of the raw type StackDeque
+         a.addLast(rand.nextInt(33));
+                  ^
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+testStackDeque.java:33: warning: [unchecked] unchecked call to addFirst(E) as a member of the raw type StackDeque
+         a.addFirst(99);
+                   ^
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+testStackDeque.java:38: warning: [unchecked] unchecked call to addLast(E) as a member of the raw type StackDeque
+         a.addLast(99);
+                  ^
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+./StackDeque.java:2: warning: [rawtypes] found raw type: ArrayStack
+   private ArrayStack<E> frontStack = new ArrayStack();
+                                          ^
+  missing type arguments for generic class ArrayStack<E>
+  where E is a type-variable:
+    E extends Object declared in class ArrayStack
+./StackDeque.java:2: warning: [unchecked] unchecked conversion
+   private ArrayStack<E> frontStack = new ArrayStack();
+                                      ^
+  required: ArrayStack<E>
+  found:    ArrayStack
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+./StackDeque.java:3: warning: [rawtypes] found raw type: ArrayStack
+   private ArrayStack<E> endStack = new ArrayStack();
+                                        ^
+  missing type arguments for generic class ArrayStack<E>
+  where E is a type-variable:
+    E extends Object declared in class ArrayStack
+./StackDeque.java:3: warning: [unchecked] unchecked conversion
+   private ArrayStack<E> endStack = new ArrayStack();
+                                    ^
+  required: ArrayStack<E>
+  found:    ArrayStack
+  where E is a type-variable:
+    E extends Object declared in class StackDeque
+10 warnings
