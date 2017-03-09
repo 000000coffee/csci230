@@ -7,10 +7,14 @@ public class RingBuffer {
    public RingBuffer() {
       this.capacity = 100;
       this.size = 0;
+      this.first = 0;
+      this.last = 0;
    }
    public RingBuffer(int capacity) {
       this.capacity = capacity;
       this.size = 0;
+      this.first = 0;
+      this.last = 0;
    }
    public int size() {
       return this.size;
