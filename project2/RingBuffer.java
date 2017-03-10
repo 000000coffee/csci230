@@ -1,16 +1,20 @@
 public class RingBuffer {
    private double[] ringBuffer;
    private int capacity;
-   int first;
-   int last;
+   private int first;
+   private int last;
    private int size;
    public RingBuffer() {
       this.capacity = 100;
       this.size = 0;
+      this.first = 0;
+      this.last = 0;
    }
    public RingBuffer(int capacity) {
       this.capacity = capacity;
       this.size = 0;
+      this.first = 0;
+      this.last = 0;
    }
    public int size() {
       return this.size;
@@ -23,6 +27,9 @@ public class RingBuffer {
       if (size == capacity) return true;
       else return false;
    }
+   public int getFirst() {
+      return this.first;
+   }
    public void enqueue(double x) {
       // TODO: add throws RingBufferException if isFull()
       // add item x to the end
@@ -31,6 +38,7 @@ public class RingBuffer {
          last = 0;
       else
          ++last;
+      ++size;
    }
    public double dequeue() {
       // TODO: add throws RingBufferException if isEmpty()
@@ -40,10 +48,10 @@ public class RingBuffer {
          first = 0;
       else
          ++first;
+      --size;
       return ringBuffer[tmp];
    }
    public double peek() {
-      // TODO: returns (but do not delete) item from the front
       return ringBuffer[first];
    }
 }
