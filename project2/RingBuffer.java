@@ -6,12 +6,14 @@ public class RingBuffer {
    private int size;
    public RingBuffer() {
       this.capacity = 100;
+      ringBuffer = new double[this.capacity];
       this.size = 0;
       this.first = 0;
       this.last = 0;
    }
    public RingBuffer(int capacity) {
       this.capacity = capacity;
+      ringBuffer = new double[this.capacity];
       this.size = 0;
       this.first = 0;
       this.last = 0;
@@ -30,28 +32,44 @@ public class RingBuffer {
    public int getFirst() {
       return this.first;
    }
-   public void enqueue(double x) {
-      // TODO: add throws RingBufferException if isFull()
-      // add item x to the end
-      ringBuffer[last] = x;
-      if (last == capacity)
-         last = 0;
-      else
-         ++last;
-      ++size;
-   }
-   public double dequeue() {
-      // TODO: add throws RingBufferException if isEmpty()
-      // delete and return item from the front
-      int tmp = first;
-      if (first == capacity)
-         first = 0;
-      else
-         ++first;
-      --size;
-      return ringBuffer[tmp];
+   public int getLast() {
+      return this.last;
    }
    public double peek() {
       return ringBuffer[first];
+   }
+   public void enqueue(double x) throws RingBufferException {
+      try {
+         if (this.isFull()) { throw new RingBufferException("full"); }
+         ringBuffer[last] = x;
+         if (last == (capacity - 1))
+            last = 0;
+         else
+            ++last;
+         ++size;
+      }
+      catch (RingBufferException ex) {
+         throw ex;
+      }
+   }
+   public double dequeue() throws RingBufferException {
+      try {
+         if (this.isEmpty()) { throw new RingBufferException("empty"); }
+         int tmp = first;
+         if (first == (capacity - 1))
+            first = 0;
+         else
+            ++first;
+         --size;
+         return ringBuffer[tmp];
+      }
+      catch (RingBufferException ex) {
+         throw ex;
+      }
+   }
+   public class RingBufferException extends Exception {
+      public RingBufferException(String message) {
+         super(message);
+      }
    }
 }
