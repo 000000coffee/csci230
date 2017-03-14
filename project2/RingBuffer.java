@@ -88,7 +88,7 @@ public class RingBuffer {
       public RingBufferException(Throwable cause) {
          super(cause);
       }
-      public void printMessage() { System.out.println(message); }
+      public void printMessage() { System.out.print(message); }
       @Override
       public String toString() { return message; }
       @Override

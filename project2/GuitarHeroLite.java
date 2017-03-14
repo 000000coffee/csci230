@@ -17,7 +17,7 @@ public class GuitarHeroLite {
  
                 // the user types this character
                 char key = StdDraw.nextKeyTyped();
-                System.out.println(key);
+                System.out.print(" | " + key);
                 // pluck the corresponding string
                 if (key == 'a') { stringA.pluck(); }
                 if (key == 'c') { stringC.pluck(); }

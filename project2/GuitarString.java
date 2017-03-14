@@ -23,6 +23,9 @@ public class GuitarString {
    public void pluck() {
       Random rand = new Random();
       for (int i = string.getFirst(); i < string.size(); ++i) {
+         // first dequeue to make space
+         string.dequeue();
+         // then enqueue
          string.enqueue(rand.nextDouble() - 0.5);
       }
    }
