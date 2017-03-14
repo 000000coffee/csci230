@@ -38,38 +38,60 @@ public class RingBuffer {
    public double peek() {
       return ringBuffer[first];
    }
-   public void enqueue(double x) throws RingBufferException {
+   public void enqueue(double x) {
       try {
-         if (this.isFull()) { throw new RingBufferException("full"); }
-         ringBuffer[last] = x;
-         if (last == (capacity - 1))
-            last = 0;
-         else
-            ++last;
-         ++size;
+         this.validateEnqueue(x);
       }
-      catch (RingBufferException ex) {
-         throw ex;
-      }
+      catch (RingBufferException ex) { ex.printMessage(); }
    }
-   public double dequeue() throws RingBufferException {
+   public double dequeue() {
+      int tmp = first;
       try {
-         if (this.isEmpty()) { throw new RingBufferException("empty"); }
-         int tmp = first;
-         if (first == (capacity - 1))
-            first = 0;
-         else
-            ++first;
-         --size;
-         return ringBuffer[tmp];
+         this.validateDequeue();
       }
-      catch (RingBufferException ex) {
-         throw ex;
-      }
+      catch (RingBufferException ex) { ex.printMessage(); }
+      return ringBuffer[tmp];
    }
+   private void validateEnqueue(double x) throws RingBufferException {
+      if (this.isFull())
+         throw new RingBufferException("Full");
+      ringBuffer[last] = x;
+      if (last == (capacity - 1))
+         last = 0;
+      else
+         ++last;
+      ++size;
+   }
+   private void validateDequeue() throws RingBufferException {
+      if (this.isEmpty())
+         throw new RingBufferException("Empty");
+      if (first == (capacity - 1))
+         first = 0;
+      else
+         ++first;
+      --size;
+   }
+   @SuppressWarnings("serial")
    public class RingBufferException extends Exception {
+      private String message = null;
+      public RingBufferException() {
+         super();
+      }
+      public RingBufferException(String message, Throwable cause) {
+         super(message, cause);
+         this.message = message;
+      }
       public RingBufferException(String message) {
          super(message);
+         this.message = message;
       }
+      public RingBufferException(Throwable cause) {
+         super(cause);
+      }
+      public void printMessage() { System.out.println(message); }
+      @Override
+      public String toString() { return message; }
+      @Override
+      public String getMessage() { return message; }
    }
 }
