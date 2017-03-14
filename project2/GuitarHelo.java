@@ -10,6 +10,9 @@ public class GuitarHelo {
          strings[i] = new GuitarString(440.0 * Math.pow(1.05956, (i - 24)));
       }
 
+      double time = 0.00;
+      double sampleHolder = 0.00;
+
       // the main input loop
       while (true) {
          while (StdDraw.hasNextKeyTyped()) {
@@ -28,6 +31,13 @@ public class GuitarHelo {
 
          // send the result to standard audio
          StdAudio.play(sample);
+         
+         // draw
+         //StdDraw.enableDoubleBuffering();
+         //StdDraw.line(time - 1.00, sampleHolder, time, sample);
+         //StdDraw.show();
+         //sampleHolder = sample;
+         //++time;
 
          // advance the simulation of each guitar string by one step
          for (int i = 0; i < keyboard.length(); ++i) {
