@@ -1,9 +1,13 @@
+import java.util.Random;
+
 public class GuitarHelo {
+   /*    piano keys on the keyboard    */
+   private final static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+   /*    size of the ring buffer and therefore amount of 'zoom'   */
+   private final static int zoom = 220;
 
    public static void main(String[] args) {
 
-      /*    piano keys on the keyboard    */
-      final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
       /*    Create guitar strings   */
       GuitarString[] strings = new GuitarString[keyboard.length()];
@@ -15,11 +19,23 @@ public class GuitarHelo {
          strings[i] = new GuitarString(440.0 * Math.pow(1.05956, (i - 24)));
       }
 
-      double time = 0.00;
-      double sampleHolder = 0.00;
+      RingBuffer samples = new RingBuffer(zoom);
+      for (int i = 0; !samples.isFull(); ++i) {
+         samples.enqueue(0.00);
+      }
+
+      StdDraw.enableDoubleBuffering();
+      double x0 = 0;
+      double y0 = 0;  
+      double x1 = 0;  
+      double y1 = 0;  
 
       /*    the main input loop  */
       while (true) {
+         if ((strings[0].time() % samples.size()) == 0) {
+            StdDraw.clear();
+            StdDraw.pause(1);
+         }
          /*    while has next key
           *       if key inputed isn't valid then break
           *       print the key and pluck the string of that key
@@ -40,17 +56,23 @@ public class GuitarHelo {
 
          /*    send the result to standard audio   */
          StdAudio.play(sample);
-         
-         // draw
-         //StdDraw.enableDoubleBuffering();
-         //StdDraw.line(time - 1.00, sampleHolder, time, sample);
-         //StdDraw.show();
-         //sampleHolder = sample;
-         //++time;
+
+         x0 = (strings[0].time() % samples.size()) / (double)samples.size();
+         y0 = (samples.dequeue()/1.5)+0.5;
+         samples.enqueue(sample);
 
          /*    advance the simulation of each guitar string by one step    */
          for (int i = 0; i < keyboard.length(); ++i) {
             strings[i].tic();
+         }
+         x1 = (strings[0].time() % samples.size()) / (double)samples.size();
+         if (x0 > x1)
+            x0 = 0;
+         y1 = (samples.peek()/1.5)+0.5;
+         StdDraw.line(x0, y0, x1, y1);
+         if ((strings[0].time() % samples.size()) == 0) {
+            StdDraw.show();
+            StdDraw.pause(10);
          }
       }
    }
