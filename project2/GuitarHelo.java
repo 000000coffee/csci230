@@ -1,10 +1,10 @@
+
 import java.util.Random;
 
 public class GuitarHelo {
    /*    piano keys on the keyboard    */
    private final static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
    /*    size of the ring buffer and therefore amount of 'zoom'   */
-   private final static int zoom = 220;
 
    public static void main(String[] args) {
 
@@ -19,7 +19,7 @@ public class GuitarHelo {
          strings[i] = new GuitarString(440.0 * Math.pow(1.05956, (i - 24)));
       }
 
-      RingBuffer samples = new RingBuffer(zoom);
+      RingBuffer samples = new RingBuffer(1000);
       for (int i = 0; !samples.isFull(); ++i) {
          samples.enqueue(0.00);
       }
@@ -34,7 +34,6 @@ public class GuitarHelo {
       while (true) {
          if ((strings[0].time() % samples.size()) == 0) {
             StdDraw.clear();
-            StdDraw.pause(1);
          }
          /*    while has next key
           *       if key inputed isn't valid then break

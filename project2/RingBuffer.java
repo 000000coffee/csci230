@@ -1,3 +1,4 @@
+
 public class RingBuffer {
    private double[] ringBuffer;
    private int capacity;
